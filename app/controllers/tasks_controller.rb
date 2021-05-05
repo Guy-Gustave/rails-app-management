@@ -46,7 +46,7 @@ class TasksController < ApplicationController
   def destroy
     @task.destroy
 
-    redirect_to project_tasks_url(@project)
+    redirect_to project_url(@project)
   end
 
   private
