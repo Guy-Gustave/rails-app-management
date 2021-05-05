@@ -1,4 +1,18 @@
-<p id="notice"><%= notice %></p>
+<div class="card">
+  <div class="card-body">
+    <h2 class="card-title d-flex justify-content-between mb-4">
+      <span><%= @project.name %></span>
+      <div>
+        <%= link_to 'Edit ', edit_project_path,class: 'btn btn-warning' %>
+        <%= link_to 'Destroy', @project, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
+      </div>
+    </h2>
+    <h5 > Add task</h5>
+    <hr>
+
+    <%= render 'tasks/form' %>
+  </div>
+</div>
 
 <p>
   <strong>Name:</strong>
@@ -14,15 +28,14 @@
   <strong>User:</strong>
   <%= @project.user_id %>
 </p>
-
+<%
+=begin%>
+ 
 <%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>
+<%= link_to 'Back', projects_path %> 
+<%
+=end%>
 
-<hr>
-
-<h1>New task</h1>
-
-<%= render 'tasks/form' %>
 
 <hr>
 
@@ -39,21 +52,19 @@
     <th></th>
   </tr>
 
-<% @project.tasks.each do |task| %>
+  <% @project.tasks.each do |task| %>
   <% if task.persisted? %>
-    <tr>
-      <td><%= task.title %></td>
-      <td><%= task.description %></td>
-      <td><%= task.status %></td>
-      <td><%= task.project %></td>
-      <td><%= link_to 'Show', [task.project, task] %></td>
-      <td><%= link_to 'Edit', edit_project_task_path(task.project, task) %></td>
-      <td><%= link_to 'Destroy', [task.project, task], method: :delete, data: { confirm: 'Are you sure?' } %></td>
-    </tr>
+  <tr>
+    <td><%= task.title %></td>
+    <td><%= task.description %></td>
+    <td><%= task.status %></td>
+    <td><%= task.project %></td>
+    <td><%= link_to 'Show', [task.project, task] %></td>
+    <td><%= link_to 'Edit', edit_project_task_path(task.project, task) %></td>
+    <td><%= link_to 'Destroy', [task.project, task], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
   <% end %>
-<% end %>
+  <% end %>
 </table>
 
 <br />
-
-<%= link_to 'New Task', new_project_task_path(@project.id) %>
