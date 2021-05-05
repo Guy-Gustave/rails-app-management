@@ -7,34 +7,36 @@
         <%= link_to 'Destroy', @project, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %>
       </div>
     </h2>
-    <h5 > Add task</h5>
+    <h5> Add task</h5>
     <hr>
 
-    <%= render 'tasks/form' %>
+    <%= form_for([@task.project, @task]) do |f| %>
+    <% if @task.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+
+      <ul>
+        <% @task.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+    <% end %>
+
+    <div class="input-group">
+      <%= f.text_field :title, class: 'form-control' %>
+      <div class="input-group-append mx-3 ">
+        <%= f.submit class: 'btn btn-primary' %>
+      </div>
+    </div>
+    <% end %>
+
+
   </div>
 </div>
 
-<p>
-  <strong>Name:</strong>
-  <%= @project.name %>
-</p>
+<%= link_to 'Back', projects_path, class: 'btn btn-secondary m-3' %>
 
-<p>
-  <strong>Description:</strong>
-  <%= @project.description %>
-</p>
-
-<p>
-  <strong>User:</strong>
-  <%= @project.user_id %>
-</p>
-<%
-=begin%>
- 
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %> 
-<%
-=end%>
 
 
 <hr>
