@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_project
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
@@ -9,6 +10,7 @@ class TasksController < ApplicationController
 
   # GET projects/1/tasks/1
   def show
+    
   end
 
   # GET projects/1/tasks/new
@@ -25,7 +27,7 @@ class TasksController < ApplicationController
     @task = @project.tasks.build(task_params)
 
     if @task.save
-      redirect_to([@task.project, @task], notice: 'Task was successfully created.')
+      redirect_to(@task.project)
     else
       render action: 'new'
     end
@@ -50,7 +52,7 @@ class TasksController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_project
-      @project = Project.find(params[:project_id])
+      @project = current_user.projects.find(params[:project_id])
     end
 
     def set_task
